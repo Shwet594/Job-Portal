@@ -1,10 +1,31 @@
 import { useState } from "react";
-import { useJobStore } from "../../store/jobStore";
+import { useJobStore } from "../../store/jobstore";
 const CreateJob = () => {
-  const {createJob} =
-    useJobStore();
-  const [form, setForm] =
-    useState({
+  const { createJob } = useJobStore();
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    location: "",
+    salary: "",
+    experience: "",
+    skillsRequired: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      ...form,
+      skillsRequired: form.skillsRequired
+        .split(",")
+        .map((skill) => skill.trim()),
+    };
+
+    await createJob(payload);
+
+    alert("Job created successfully");
+
+    setForm({
       title: "",
       description: "",
       location: "",
@@ -12,49 +33,13 @@ const CreateJob = () => {
       experience: "",
       skillsRequired: "",
     });
-
-  const handleSubmit =
-    async (e) => {
-      e.preventDefault();
-
-      const payload = {
-        ...form,
-        skillsRequired:
-          form.skillsRequired
-            .split(",")
-            .map((skill) =>
-              skill.trim()
-            ),
-      };
-
-      await createJob(payload);
-
-      alert(
-        "Job created successfully"
-      );
-
-      setForm({
-        title: "",
-        description: "",
-        location: "",
-        salary: "",
-        experience: "",
-        skillsRequired: "",
-      });
-    };
+  };
 
   return (
     <div className="max-w-3xl">
+      <h1 className="text-3xl font-bold mb-6">Create Job</h1>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Create Job
-      </h1>
-
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
-
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           className="border p-3 w-full"
           placeholder="Job Title"
@@ -62,8 +47,7 @@ const CreateJob = () => {
           onChange={(e) =>
             setForm({
               ...form,
-              title:
-                e.target.value,
+              title: e.target.value,
             })
           }
         />
@@ -76,8 +60,7 @@ const CreateJob = () => {
           onChange={(e) =>
             setForm({
               ...form,
-              description:
-                e.target.value,
+              description: e.target.value,
             })
           }
         />
@@ -89,8 +72,7 @@ const CreateJob = () => {
           onChange={(e) =>
             setForm({
               ...form,
-              location:
-                e.target.value,
+              location: e.target.value,
             })
           }
         />
@@ -102,8 +84,7 @@ const CreateJob = () => {
           onChange={(e) =>
             setForm({
               ...form,
-              salary:
-                e.target.value,
+              salary: e.target.value,
             })
           }
         />
@@ -115,8 +96,7 @@ const CreateJob = () => {
           onChange={(e) =>
             setForm({
               ...form,
-              experience:
-                e.target.value,
+              experience: e.target.value,
             })
           }
         />
@@ -124,24 +104,16 @@ const CreateJob = () => {
         <input
           className="border p-3 w-full"
           placeholder="React, Node, MongoDB"
-          value={
-            form.skillsRequired
-          }
+          value={form.skillsRequired}
           onChange={(e) =>
             setForm({
               ...form,
-              skillsRequired:
-                e.target.value,
+              skillsRequired: e.target.value,
             })
           }
         />
 
-        <button
-          className="bg-black text-white px-6 py-3"
-        >
-          Create Job
-        </button>
-
+        <button className="bg-black text-white px-6 py-3">Create Job</button>
       </form>
     </div>
   );
