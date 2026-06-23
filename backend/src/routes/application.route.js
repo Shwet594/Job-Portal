@@ -4,6 +4,7 @@ import {
   applyForJob,
   getMyApplications,
   updateApplicationStatus,
+  getJobApplicants,
 } from "../controllers/application.controller.js";
 
 import {
@@ -26,6 +27,12 @@ router.get(
   protectRoute,
   candidateOnly,
   getMyApplications
+);
+router.get(
+  "/job/:jobId/applicants",
+  protectRoute,
+  recruiterOnly,
+  getJobApplicants
 );
 router.put(
   "/:applicationId/status",

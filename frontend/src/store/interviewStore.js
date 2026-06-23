@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
-
+import { successToast, errorToast } from "../lib/toast";
 export const useInterviewStore = create((set) => ({
   interviews: [],
 
@@ -12,7 +12,7 @@ export const useInterviewStore = create((set) => ({
         interviews: res.data,
       });
     } catch (error) {
-      console.log(error);
+      errorToast(error.response?.data?.message || "Failed to fetch interviews");
     }
   },
 
@@ -24,7 +24,7 @@ export const useInterviewStore = create((set) => ({
         interviews: res.data,
       });
     } catch (error) {
-      console.log(error);
+      errorToast(error.response?.data?.message || "Failed to fetch interviews");
     }
   },
 
@@ -36,10 +36,10 @@ export const useInterviewStore = create((set) => ({
       };
 
       const res = await axiosInstance.post("/interviews", payload);
-
+      successToast("Interview scheduled successfully");
       return res.data;
     } catch (error) {
-      console.log(error);
+      errorToast(error.response?.data?.message || "Failed to schedule interview");
     }
   },
 }));

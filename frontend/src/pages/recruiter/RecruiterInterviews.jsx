@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useInterviewStore } from "../../store/interviewStore";
 
-const Interviews = () => {
+const RecruiterInterviews = () => {
   const { interviews, getRecruiterInterviews } = useInterviewStore();
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const Interviews = () => {
   );
 };
 
-export default Interviews;
+export default RecruiterInterviews;

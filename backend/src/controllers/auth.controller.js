@@ -31,7 +31,6 @@ export const signup = async (req, res) => {
       password: hashedPassword,
       role,
     });
-
     generateToken(user._id, res);
 
     res.status(201).json(user);
@@ -63,7 +62,7 @@ export const login = async (req, res) => {
     }
 
     generateToken(user._id, res);
-
+    console.log(user);
     res.json(user);
   } catch (error) {
     res.status(500).json({

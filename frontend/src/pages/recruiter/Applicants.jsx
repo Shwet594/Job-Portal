@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { useApplicationStore } from "../../store/applicationStore";
 
 const Applicants = () => {
   const { jobId } = useParams();
-
+  const navigate = useNavigate();
   const [applicants, setApplicants] = useState([]);
 
   const { getJobApplicants, updateApplicationStatus } = useApplicationStore();

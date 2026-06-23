@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { axiosInstance } from "../../lib/axios";
 import { useNavigate } from "react-router-dom";
+import { errorToast ,successToast} from "../../lib/toast";
+import { useAuthStore } from "../../store/authStore";
 
 const Signup = () => {
   const navigate = useNavigate();
-
+  const { signup } = useAuthStore();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -16,13 +17,13 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const res = await axiosInstance.post("/auth/signup", form);
+      const res = await signup(form);
 
-      console.log(res.data);
+      successToast("Account created successfully");
 
       navigate("/");
     } catch (error) {
-      console.log(error.response?.data);
+      errorToast(error.response?.data?.message || "Signup failed");
     }
   };
 

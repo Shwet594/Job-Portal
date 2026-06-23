@@ -1,5 +1,6 @@
 import Application from "../models/application.model.js";
 import Job from "../models/job.model.js";
+import {User} from "../models/user.model.js"; 
 import { sendEmail } from "../lib/sendEmail.js";
 export const applyForJob = async (req, res) => {
   try {
@@ -123,6 +124,7 @@ ${status}`,
     );
     res.status(200).json(application);
   } catch (error) {
+    console.log("UPDATE STATUS ERROR:",error);
     res.status(500).json({
       message: error.message,
     });

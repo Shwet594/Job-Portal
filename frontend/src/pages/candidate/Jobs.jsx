@@ -6,10 +6,12 @@ import { useJobStore } from "../../store/jobStore";
 
 import { useApplicationStore } from "../../store/applicationStore";
 
+import { useSavedJobStore } from "../../store/savedjobStore";
 const Jobs = () => {
   const [search, setSearch] = useState("");
 
   const { jobs, getJobs, searchJobs } = useJobStore();
+  const { saveJob } = useSavedJobStore();
 
   const { applyForJob } = useApplicationStore();
 
@@ -38,7 +40,12 @@ const Jobs = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {jobs.map((job) => (
-          <JobCard key={job._id} job={job} onApply={applyForJob} />
+          <JobCard
+            key={job._id}
+            job={job}
+            onApply={applyForJob}
+            onSave={saveJob}
+          />
         ))}
       </div>
     </div>

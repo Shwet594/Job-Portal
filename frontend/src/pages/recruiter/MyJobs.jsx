@@ -30,6 +30,12 @@ const MyJobs = () => {
               Delete
             </button>
             <Link
+              to={`/recruiter/jobs/edit/${job._id}`}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Edit
+            </Link>
+            <Link
               to={`/recruiter/jobs/${job._id}/applicants`}
               className="border px-4 py-2"
             >

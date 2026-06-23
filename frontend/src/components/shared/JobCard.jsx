@@ -1,7 +1,12 @@
-const JobCard = ({ job, onApply }) => {
+import { Link } from "react-router-dom";
+const JobCard = ({ job, onApply, onSave }) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border p-6 hover:shadow-lg transition">
-      <h2 className="text-xl font-bold">{job.title}</h2>
+      <Link
+  to={`/candidate/jobs/${job._id}`}
+>
+        <h2 className="text-xl font-bold">{job.title}</h2>
+      </Link>
 
       <p className="text-gray-600 mt-2">📍 {job.location}</p>
 
@@ -23,6 +28,12 @@ const JobCard = ({ job, onApply }) => {
         className="mt-5 w-full bg-black text-white py-3 rounded-xl hover:opacity-90"
       >
         Apply Now
+      </button>
+      <button
+        onClick={() => onSave(job._id)}
+        className="border px-4 py-2 rounded"
+      >
+        Save
       </button>
     </div>
   );

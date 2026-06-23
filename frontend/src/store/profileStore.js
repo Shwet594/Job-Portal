@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
-
+import { successToast, errorToast } from "../lib/toast";
 export const useProfileStore =
   create((set) => ({
     profile: null,
@@ -20,7 +20,7 @@ export const useProfileStore =
               res.data,
           });
         } catch (error) {
-          console.log(error);
+          errorToast(error.response?.data?.message || "Failed to fetch profile");
         }
       },
 
@@ -31,13 +31,13 @@ export const useProfileStore =
             await axiosInstance.get(
               "/profile/completion"
             );
-
+          
           set({
             completion:
               res.data,
           });
         } catch (error) {
-          console.log(error);
+          errorToast(error.response?.data?.message || "Failed to fetch profile completion");
         }
       },
       uploadResume: async (file) => {
@@ -64,10 +64,10 @@ export const useProfileStore =
     set({
       profile: res.data,
     });
-
+    successToast("Resume uploaded successfully");
     return res.data;
   } catch (error) {
-    console.log(error);
+    errorToast(error.response?.data?.message || "Failed to upload resume");
   }
 },
       updateProfileDetails:
@@ -78,14 +78,14 @@ export const useProfileStore =
           "/profile/update-details",
           data
         );
-
+      successToast("Profile details updated successfully");
       set({
         profile: res.data,
       });
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      errorToast(error.response?.data?.message || "Failed to update profile details");
     }
   },
   }));
