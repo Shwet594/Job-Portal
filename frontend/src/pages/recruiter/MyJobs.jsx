@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useJobStore } from "../../store/jobstore";
+import { useJobStore } from "../../store/jobStore";
 
 const MyJobs = () => {
   const { jobs, getMyJobs, deleteJob } = useJobStore();

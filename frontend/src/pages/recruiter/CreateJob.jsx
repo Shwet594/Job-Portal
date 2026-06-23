@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useJobStore } from "../../store/jobstore";
+import { useJobStore } from "../../store/jobStore";
 const CreateJob = () => {
   const { createJob } = useJobStore();
   const [form, setForm] = useState({
